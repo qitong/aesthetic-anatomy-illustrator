@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Type C - 全景多维卡片导览图模板 (医美文献库6宫格风格)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(135deg, #efe8e0 0%, #dcd0c4 100%);
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  /* 左侧主模特容器 */
+  .model-zone {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 480px;
+    /* 替换为左侧主模特高清人像图 */
+    background: radial-gradient(circle at 45% 45%, #d8c3b4 0%, #b39b8a 100%);
+    background-size: cover;
+    background-position: center;
+  }
+  /* 右侧卡片网格区 */
+  .grid-zone {
+    position: absolute;
+    left: 490px;
+    right: 28px;
+    top: 28px;
+    bottom: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 220px 220px 190px;
+    gap: 14px;
+    z-index: 2;
+  }
+  .card {
+    background: rgba(250, 247, 242, 0.94);
+    border: 1.5px solid #c7bcaeff;
+    border-radius: 12px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(60, 45, 30, 0.06);
+  }
+  .card.wide {
+    grid-column: 1 / span 3;
+  }
+  .card-info {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-tag {
+    display: inline-block;
+    align-self: flex-start;
+    background: #4e5d46;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 3px 16px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .card-text {
+    font-size: 13px;
+    color: #3f3833;
+    line-height: 1.55;
+  }
+  .card-thumb {
+    width: 52%;
+    background: #e2d4c8;
+    background-size: cover;
+    background-position: center;
+    border-left: 1px solid rgba(199, 188, 174, 0.5);
+  }
+  .card.wide .card-thumb {
+    width: 68%;
+  }
+  .svg-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="model-zone"></div>
+
+  <div class="grid-zone">
+    <!-- 卡片 1: 颞肌 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">颞肌</span>
+        <p class="card-text">位于颞部，参与咀嚼，与咬肌相邻，复诊时需一并评估。</p>
+      </div>
+      <div class="card-thumb" title="放入颞肌局部透视解剖图"></div>
+    </div>
+
+    <!-- 卡片 2: 咬肌 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">咬肌</span>
+        <p class="card-text">位于面颊下颌角区域，主要影响下面部的体积和轮廓。</p>
+      </div>
+      <div class="card-thumb" title="放入咬肌局部透视解剖图"></div>
+    </div>
+
+    <!-- 卡片 3: 腮腺 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">腮腺</span>
+        <p class="card-text">位于耳前，属于唾液腺，不是肌肉。治疗后主要影响腺体的分泌和体积。</p>
+      </div>
+      <div class="card-thumb" title="放入腮腺黄色分叶状腺体解剖图"></div>
+    </div>
+
+    <!-- 卡片 4: 降口角肌 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">降口角肌</span>
+        <p class="card-text">位于口角外侧，负责向下牵拉嘴角，影响嘴角的走向和下颌线的视觉效果。</p>
+      </div>
+      <div class="card-thumb" title="放入降口角肌局部解剖图"></div>
+    </div>
+
+    <!-- 卡片 5: 颏肌 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">颏肌</span>
+        <p class="card-text">位于下巴正中，过度活动时会使下巴出现皱褶，影响颏部的形状。</p>
+      </div>
+      <div class="card-thumb" title="放入颏肌局部解剖图"></div>
+    </div>
+
+    <!-- 卡片 6: 颌下腺 -->
+    <div class="card">
+      <div class="card-info">
+        <span class="card-tag">颌下腺</span>
+        <p class="card-text">位于下颌骨下方，属于唾液腺，不是肌肉。治疗后主要影响腺体的分泌和体积。</p>
+      </div>
+      <div class="card-thumb" title="放入颌下腺局部解剖图"></div>
+    </div>
+
+    <!-- 卡片 7: 颈阔肌 (底部通栏) -->
+    <div class="card wide">
+      <div class="card-info">
+        <span class="card-tag">颈阔肌</span>
+        <p class="card-text">位于颈部前外侧，是一片较薄、面积较大的肌肉，向下牵拉下半张脸，影响颈部轮廓和下颌线的紧致感。</p>
+      </div>
+      <div class="card-thumb" title="放入颈阔肌全景透视解剖图"></div>
+    </div>
+  </div>
+
+  <!-- 跨图层锚点引出线 -->
+  <svg class="svg-lines" viewBox="0 0 1280 720">
+    <defs>
+      <marker id="whiteDot" markerWidth="10" markerHeight="10" refX="5" refY="5">
+        <circle cx="5" cy="5" r="3.5" fill="#ffffff" stroke="#8a7968" stroke-width="1.5"/>
+      </marker>
+    </defs>
+    <!-- 左侧模特面部锚点连线至右侧卡片 -->
+    <line x1="340" y1="220" x2="490" y2="95" stroke="#dfd5c8" stroke-width="1.5" marker-start="url(#whiteDot)"/>
+    <line x1="345" y1="360" x2="490" y2="290" stroke="#dfd5c8" stroke-width="1.5" marker-start="url(#whiteDot)"/>
+    <line x1="320" y1="435" x2="490" y2="415" stroke="#dfd5c8" stroke-width="1.5" marker-start="url(#whiteDot)"/>
+    <line x1="265" y1="510" x2="750" y2="450" stroke="#dfd5c8" stroke-width="1.5" marker-start="url(#whiteDot)"/>
+    <line x1="290" y1="555" x2="490" y2="545" stroke="#dfd5c8" stroke-width="1.5" marker-start="url(#whiteDot)"/>
+  </svg>
+</div>
+
+</body>
+</html>

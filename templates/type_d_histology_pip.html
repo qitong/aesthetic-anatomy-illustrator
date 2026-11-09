@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Type D - 宏观临床表征 + 3D皮肤组织学截面画中画 (PIP) 模板</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #141414;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 40% 40%, #e5cbb8 0%, #c4a48e 100%);
+    background-size: cover;
+    background-position: center;
+  }
+  /* 右下角 3D 组织学截面画中画卡片 */
+  .pip-card {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    width: 270px;
+    height: 290px;
+    background: #f5ebe2;
+    border: 3px solid #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .panel-badge {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    background: rgba(44, 62, 53, 0.88);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .svg-connector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <!-- 左侧对比图：如色素型黑眼圈 -->
+  <div class="panel">
+    <div class="panel-badge">色素型黑眼圈（表皮黑色素沉积）</div>
+    <div class="pip-card" title="放入3D皮肤组织学截面：表皮基底层褐色黑色素颗粒沉积"></div>
+    <svg class="svg-connector" viewBox="0 0 637 720">
+      <circle cx="270" cy="355" r="4" fill="#ffffff"/>
+      <line x1="270" y1="355" x2="340" y2="435" stroke="#ffffff" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- 右侧对比图：如血管型黑眼圈 -->
+  <div class="panel">
+    <div class="panel-badge">血管型黑眼圈（真皮毛细血管网透出）</div>
+    <div class="pip-card" title="放入3D皮肤组织学截面：真皮层红蓝毛细血管网迂曲扩张"></div>
+    <svg class="svg-connector" viewBox="0 0 637 720">
+      <circle cx="285" cy="355" r="4" fill="#ffffff"/>
+      <line x1="285" y1="355" x2="340" y2="435" stroke="#ffffff" stroke-width="2"/>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Type A/B - 生物力学箭头与解剖引线叠加模板</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #141414;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    /* 将 background-image 替换为 Gemini / ChatGPT / Hy4 生成的无字解剖底图 */
+    background: radial-gradient(circle at 50% 45%, #ecdcd0 0%, #c8b2a2 100%);
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+  .svg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .label-tag {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: #2b2522;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.95), 0 0 4px rgba(255,255,255,1);
+    white-space: nowrap;
+  }
+  .watermark {
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    color: rgba(60, 50, 45, 0.65);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <svg class="svg-layer" viewBox="0 0 1280 720">
+    <defs>
+      <linearGradient id="upArrowGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#f7c948" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#fff3a1" stop-opacity="0.95"/>
+      </linearGradient>
+      <linearGradient id="downArrowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#90e0ef" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#48cae4" stop-opacity="0.95"/>
+      </linearGradient>
+      <marker id="dot" markerWidth="8" markerHeight="8" refX="4" refY="4">
+        <circle cx="4" cy="4" r="3" fill="#2b2522"/>
+      </marker>
+    </defs>
+
+    <!-- 示例：额肌上提暖色箭头组 (左/右对称) -->
+    <path d="M 460 280 Q 450 200 445 140" fill="none" stroke="url(#upArrowGrad)" stroke-width="8" stroke-linecap="round"/>
+    <polygon points="444,124 434,146 456,146" fill="#fff3a1"/>
+
+    <path d="M 520 290 Q 515 220 510 165" fill="none" stroke="url(#upArrowGrad)" stroke-width="8" stroke-linecap="round"/>
+    <polygon points="509,149 499,171 521,171" fill="#fff3a1"/>
+
+    <path d="M 760 290 Q 765 220 770 165" fill="none" stroke="url(#upArrowGrad)" stroke-width="8" stroke-linecap="round"/>
+    <polygon points="771,149 759,171 781,171" fill="#fff3a1"/>
+
+    <path d="M 820 280 Q 830 200 835 140" fill="none" stroke="url(#upArrowGrad)" stroke-width="8" stroke-linecap="round"/>
+    <polygon points="836,124 824,146 846,146" fill="#fff3a1"/>
+
+    <!-- 示例：眉间降肌群内收/下拉冰蓝箭头组 -->
+    <path d="M 560 330 L 605 360" fill="none" stroke="url(#downArrowGrad)" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="615,367 596,365 606,350" fill="#48cae4"/>
+
+    <path d="M 720 330 L 675 360" fill="none" stroke="url(#downArrowGrad)" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="665,367 674,350 684,365" fill="#48cae4"/>
+
+    <path d="M 622 365 L 622 425" fill="none" stroke="url(#downArrowGrad)" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="622,438 613,420 631,420" fill="#48cae4"/>
+
+    <path d="M 658 365 L 658 425" fill="none" stroke="url(#downArrowGrad)" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="658,438 649,420 667,420" fill="#48cae4"/>
+
+    <!-- 眉位平衡虚线 -->
+    <path d="M 740 365 Q 860 335 980 375" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="5,5"/>
+
+    <!-- 精准解剖引线 -->
+    <line x1="640" y1="215" x2="640" y2="145" stroke="#2b2522" stroke-width="1.2" marker-start="url(#dot)"/>
+    <line x1="640" y1="435" x2="640" y2="500" stroke="#2b2522" stroke-width="1.2" marker-start="url(#dot)"/>
+    <line x1="885" y1="352" x2="885" y2="285" stroke="#2b2522" stroke-width="1.2" marker-start="url(#dot)"/>
+  </svg>
+
+  <!-- 标注文字 -->
+  <div class="label-tag" style="left: 640px; top: 120px;">额肌上提</div>
+  <div class="label-tag" style="left: 640px; top: 525px;">眉间降眉力量</div>
+  <div class="label-tag" style="left: 885px; top: 260px;">眉位平衡</div>
+
+  <div class="watermark">医美解剖可视化系统</div>
+</div>
+
+</body>
+</html>
