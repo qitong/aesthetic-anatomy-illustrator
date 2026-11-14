@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Type B - 浅/深层脂肪分室与支持韧带透视解剖标注模板</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #141210;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    /* 将 background-image 替换为生成的无字半脸/局部透视解剖底图 */
+    background: radial-gradient(circle at 48% 46%, #cbb4a2 0%, #967d6c 65%, #3d322c 100%);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  /* 顶部临床标题栏 */
+  .header-bar {
+    position: absolute;
+    left: 36px;
+    top: 26px;
+    z-index: 4;
+  }
+  .header-title {
+    color: #fdfaf6;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+  }
+  .header-sub {
+    color: rgba(250, 242, 232, 0.85);
+    font-size: 13px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+  /* 右上角脱敏合规徽标（当使用真实患者照片时保留，通用模特图可隐藏） */
+  .privacy-badge {
+    position: absolute;
+    right: 36px;
+    top: 28px;
+    background: rgba(20, 18, 16, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(8px);
+    color: #f5efe8;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.8px;
+    z-index: 4;
+  }
+  .svg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+  /* 解剖分室标注卡片 */
+  .callout-box {
+    position: absolute;
+    width: 285px;
+    background: rgba(252, 249, 245, 0.94);
+    border-left: 4px solid #d49b35;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+    z-index: 3;
+  }
+  .callout-box.ligament {
+    border-left-color: #5b7083;
+  }
+  .callout-box.deep-fat {
+    border-left-color: #b8621b;
+  }
+  .callout-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #26201c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .callout-en {
+    font-size: 11px;
+    font-weight: 500;
+    color: #7c6f65;
+  }
+  .callout-desc {
+    font-size: 12px;
+    color: #4a4039;
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+  /* 底部组织色彩图例与免责声明 */
+  .footer-bar {
+    position: absolute;
+    left: 36px;
+    right: 36px;
+    bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(22, 19, 17, 0.78);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(245, 238, 230, 0.88);
+    font-size: 12px;
+    z-index: 4;
+  }
+  .legend-group {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="header-bar">
+    <div class="header-title">中面部浅/深层脂肪分室与支持韧带卡压机制</div>
+    <div class="header-sub">Midface Superficial &amp; Deep Fat Compartments and Retaining Ligaments (Rohrich &amp; Pessa Standard)</div>
+  </div>
+
+  <div class="privacy-badge">已脱敏 / DE-IDENTIFIED · 医学解剖示意</div>
+
+  <!-- 双层高对比引线：外层白色粗衬底 + 内层深棕主线，确保任何肤色/解剖底图上100%清晰 -->
+  <svg class="svg-layer" viewBox="0 0 1280 720">
+    <defs>
+      <marker id="anchorDot" markerWidth="10" markerHeight="10" refX="5" refY="5">
+        <circle cx="5" cy="5" r="3.8" fill="#ffffff" stroke="#2b221c" stroke-width="2"/>
+      </marker>
+    </defs>
+
+    <!-- 左侧引线 1：眼轮匝肌支持韧带 (ORL) -->
+    <polyline points="555,295 450,245 345,245" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="555,295 450,245 345,245" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+
+    <!-- 左侧引线 2：眼轮匝肌下深层脂肪垫 (SOOF) -->
+    <polyline points="545,332 435,365 345,365" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="545,332 435,365 345,365" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+
+    <!-- 左侧引线 3：深层内侧颊脂垫 (DMCF) -->
+    <polyline points="575,395 445,490 345,490" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="575,395 445,490 345,490" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+
+    <!-- 右侧引线 1：鼻唇沟浅层脂肪室 -->
+    <polyline points="695,385 830,225 935,225" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="695,385 830,225 935,225" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+
+    <!-- 右侧引线 2：内侧颊浅层脂肪室 -->
+    <polyline points="738,378 845,355 935,355" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="738,378 845,355 935,355" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+
+    <!-- 右侧引线 3：颧皮韧带 (Zygomatic Ligament) -->
+    <polyline points="755,348 855,485 935,485" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <polyline points="755,348 855,485 935,485" fill="none" stroke="#2b221c" stroke-width="1.6" marker-start="url(#anchorDot)"/>
+  </svg>
+
+  <!-- 左侧：深层解剖结构与韧带卡片组 -->
+  <div class="callout-box ligament" style="left: 48px; top: 205px;">
+    <div class="callout-title">眼轮匝肌支持韧带 <span class="callout-en">ORL / TTL</span></div>
+    <div class="callout-desc">沿眶下缘骨膜弧形附着并穿入真皮，构成泪沟凹陷与眼袋下界的骨性卡压边界。</div>
+  </div>
+
+  <div class="callout-box deep-fat" style="left: 48px; top: 325px;">
+    <div class="callout-title">眼轮匝肌下脂肪垫 <span class="callout-en">Medial &amp; Lateral SOOF</span></div>
+    <div class="callout-desc">位于眼轮匝肌深面、ORL 下方骨膜表面（分内外两叶），提供睑颊过渡区深层支撑。</div>
+  </div>
+
+  <div class="callout-box deep-fat" style="left: 48px; top: 450px;">
+    <div class="callout-title">深层内侧颊脂垫 <span class="callout-en">Deep Medial Cheek Fat</span></div>
+    <div class="callout-desc">位于提上唇肌深面、上颌骨前壁骨膜上，是苹果肌骨相投射与抗法令纹塌陷的核心底座。</div>
+  </div>
+
+  <!-- 右侧：浅层脂肪分室与韧带卡片组 -->
+  <div class="callout-box" style="right: 48px; top: 185px;">
+    <div class="callout-title">鼻唇沟浅层脂肪室 <span class="callout-en">Nasolabial Fat</span></div>
+    <div class="callout-desc">斜向泪滴长条状，紧贴鼻翼外侧与法令纹折痕内上方；松弛下移时直接压迫加深法令纹。</div>
+  </div>
+
+  <div class="callout-box" style="right: 48px; top: 315px;">
+    <div class="callout-title">内侧颊浅层脂肪室 <span class="callout-en">Medial Cheek Fat</span></div>
+    <div class="callout-desc">倒三角形分叶块，位于苹果肌正中央最高点，紧邻鼻唇沟脂肪室外侧。</div>
+  </div>
+
+  <div class="callout-box ligament" style="right: 48px; top: 445px;">
+    <div class="callout-title">颧皮韧带 / 颧弓韧带 <span class="callout-en">Zygomatic Ligament</span></div>
+    <div class="callout-desc">起自颧弓前下缘骨膜（眶下缘下方约1cm），锚定浅层脂肪下界，卡压形成印第安纹。</div>
+  </div>
+
+  <!-- 底部标准图例与免责声明 -->
+  <div class="footer-bar">
+    <div class="legend-group">
+      <div class="legend-item"><span class="swatch" style="background:#f6d05c;"></span>浅层皮下脂肪室 (Superficial Fat)</div>
+      <div class="legend-item"><span class="swatch" style="background:#d08020;"></span>深层骨膜上脂肪垫 (Deep Fat)</div>
+      <div class="legend-item"><span class="swatch" style="background:#f5f8ff;"></span>骨皮支持韧带 (Retaining Ligament)</div>
+      <div class="legend-item"><span class="swatch" style="background:#0f0f0f;"></span>眼部隐私脱敏遮挡条 (Privacy Mask)</div>
+    </div>
+    <div>临床科普与解剖教学示意，非临床诊断依据 · 发布前须取得受试者知情同意</div>
+  </div>
+</div>
+
+</body>
+</html>

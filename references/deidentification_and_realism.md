@@ -93,29 +93,30 @@ no graphic UI.
 ### Step 4 · 后处理
 
 1. 生图工具右下角有固定水印 → 裁掉。例：`im.crop((0, 110, 1024, 1441))`（1024×1536 原图，得到 0.769 比例），再缩放到版式人像窗口（如 550×715）。
-2. **重新校准所有标注坐标**。生成底图的脸部大小、位置与原始临床照不同，绝对不能复用旧坐标。用图像查看工具读出：分界线 x、发际线 y、遮挡条上下边界、眉/眼/鼻/口/下巴 y，以及各靶结构中心，再写引线。
+2. **重新校准所有标注坐标（使用 `scripts/calibrate_grid.py`）**。生成底图的脸部大小、位置与原始临床照不同，绝对不能复用旧坐标。先运行：
+   ```bash
+   python scripts/calibrate_grid.py <cropped_base.png> --viewbox 1280 720 --out <base_grid.png>
+   ```
+   用图像查看工具读取 `<base_grid.png>` 上的刻度网格，精确读出：分界线 x、发际线 y、遮挡条上下边界、眉/眼/鼻/口/下巴 y，以及各靶结构中心 `(x, y)`，再写入 SVG 引线。
 3. 版式背景色与底图匹配：纯黑临床照用 `#080706`；暖米色生成图用取样色渐变（如 `#a68e7e → #b8a292 → #c5ae99`），避免硬边。
 
 ### Step 5 · 合成与交付
 
 - 写实骨骼 / 肌肉 / 韧带 / 脂肪**全部来自底图**；本地矢量只做：结构标签、双层引线（白色粗衬底 + 深棕细主线）、锚点圆、分区卡、图例。
-- 成品必须带：`已脱敏 / DE-IDENTIFIED` 徽标、图例中的「眼部遮挡条」色块、底部免责声明。
-- 渲染用本机 Chrome 无头即可，无需 playwright：
+- 成品必须带：`已脱敏 / DE-IDENTIFIED` 徽标、图例中的「眼部遮挡条」色块、底部免责声明（可直接选用 `templates/type_b_layered_cutaway.html`）。
+- 渲染使用 `scripts/render_infographic.py`（自动优先调用本机 Chrome 无头模式，无需安装 playwright）：
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless=new --disable-gpu --no-sandbox --hide-scrollbars \
-  --force-device-scale-factor=3 --window-size=1600,900 \
-  --virtual-time-budget=5000 --screenshot="output.png" "file:///path/to/layout.html"
+python scripts/render_infographic.py layout.html output.png
 ```
 
-- 交付物：4K PNG + 自包含 HTML + 提示词与说明 md；脱敏后的中间图单独保留，供用户核对。
+- 交付物：4K PNG + 自包含 HTML + 提示词与说明 md；脱敏后的中间图单独保留，供用户核对（临时 `*_grid.png` 校准网格图在核对无误后清理）。
 
 ## 5. 三种方案的优先级
 
 | 优先级 | 方案 | 何时用 |
 | :-- | :-- | :-- |
-| **1（默认）** | 本地脱敏原照 → 脱敏版生图 → 矢量标注 | 用户提供真实照片且要写实解剖图 |
+| **1（默认）** | 本地脱敏原照 → （可选叠加 `build_anatomy_guide.py` 几何引导）→ 脱敏版生图 → 矢量标注 | 用户提供真实照片且要写实解剖图 |
 | 2 | 生成式通用人像（不碰原照）→ 矢量标注 | 用户**明确选择**放弃个体特征，或照片完全不可用 |
 | 3 | 纯本地矢量叠加（零上传、零积分） | 用户明确要求不外传任何图像；**必须主动告知风格会降级**，不要静默切换 |
 
@@ -123,7 +124,8 @@ no graphic UI.
 
 - ❌ 未脱敏就把原照传给生图模型。
 - ❌ 脱敏后模型重建了眼睛 —— 提示词没写「保留黑条」。
-- ❌ 换了底图却沿用旧的标注坐标，引线全部错位。
+- ❌ 画浅层/深层脂肪垫或支持韧带时未查阅 `references/fine_anatomy_spatial_atlas.md`，导致脂肪分室位置乱飞或糊成一团。
+- ❌ 换了底图却沿用旧的标注坐标，或未用 `calibrate_grid.py` 标尺校准导致引线全部错位。
 - ❌ 忘记裁水印，或裁切把下巴/发际线切掉。
 - ❌ 用 SVG 椭圆、色块充当肌肉和骨骼，还当作交付级写实图。
 - ❌ 成品里没有脱敏徽标 / 图例 / 免责声明。
@@ -137,12 +139,19 @@ no graphic UI.
 
 ```
 aesthetic-anatomy-illustrator/
-├── SKILL.md                                  # 含 Privacy Gate 强制章节
+├── SKILL.md                                  # 含 Privacy Gate、Step 0 交互确认与 Step 3 视觉质检
 ├── scripts/
 │   ├── deidentify_portrait.py                # 本地脱敏（本规范 Step 1）
-│   └── render_infographic.py                 # 可选：playwright 渲染
+│   ├── build_anatomy_guide.py                # 标准解剖几何参考图谱生成 & 图生图空间引导叠加
+│   ├── calibrate_grid.py                     # 像素/viewBox 坐标网格标尺校准工具
+│   └── render_infographic.py                 # Chrome Headless / Playwright 双引擎 4K 渲染
 ├── references/
-│   ├── anatomy_prompt_dictionary.md          # 解剖术语与纤维方向词典
+│   ├── anatomy_prompt_dictionary.md          # 全景解剖术语、纤维方向与临床痛点词典
+│   ├── fine_anatomy_spatial_atlas.md         # 浅/深层脂肪分室、五大韧带、危险血管几何四至与质检库
 │   └── deidentification_and_realism.md       # 本文件
-└── templates/                                # Type A / C / D HTML 标注模板
+└── templates/                                # Type A / B / C / D 工业级 HTML/SVG 标注模板
+    ├── type_a_biomechanics_overlay.html
+    ├── type_b_layered_cutaway.html
+    ├── type_c_callout_grid.html
+    └── type_d_histology_pip.html
 ```
